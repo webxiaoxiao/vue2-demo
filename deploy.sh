@@ -15,6 +15,7 @@ git commit -m 'deploy'
 
 git remote add origin https://github.com/webxiaoxiao/vue2-demo.git
 # 部署到 https://<USERNAME>.github.io/<REPO>
+# 部署到 https://webxiaoxiao.github.io/vue2-demo
 git push -f origin main
 
 cd -
