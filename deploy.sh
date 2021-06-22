@@ -7,7 +7,7 @@ set -e
 yarn build
 
 # cd 到构建输出的目录下
-cd dist
+cd docs
 
 git init
 git add -A
