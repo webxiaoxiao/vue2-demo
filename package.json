@@ -1,5 +1,6 @@
 {
   "name": "vue2",
+  "description": "vue2练习项目",
   "version": "0.1.0",
   "private": true,
   "scripts": {
