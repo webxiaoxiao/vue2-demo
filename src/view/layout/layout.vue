@@ -3,6 +3,30 @@
     <el-header class="head">
       <i class="el-icon-s-fold" @click="isShow = !isShow"></i>
       系统
+      <el-dropdown
+        style="line-height: normal;"
+        class="dropdown"
+        @command="handCommand"
+        @visible-change="v => (dropdownVisible = v)"
+      >
+        <div>
+          <i style="padding: 0 6px" class="el-icon-user"></i>
+          <span>
+            用户名
+<!--              {{ $settings.user.name }}-->
+              <i
+                :class="
+                  dropdownVisible ? 'el-icon-arrow-up' : 'el-icon-arrow-down'
+                "
+              ></i>
+            </span>
+        </div>
+
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="profile">个人中心</el-dropdown-item>
+          <el-dropdown-item command="logout">退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </el-header>
     <el-container class="wrapper">
       <el-aside class="aside" :class="{'hidden-menu': isShow}">
@@ -23,9 +47,17 @@
             <i class="el-icon-menu"></i>
             <span slot="title">个人档案</span>
           </el-menu-item>
-          <el-menu-item index="3" route="/login">
+          <el-menu-item index="3" route="/pdf">
             <i class="el-icon-document"></i>
-            <span slot="title">医疗绩效</span>
+            <span slot="title">pdf</span>
+          </el-menu-item>
+          <el-menu-item index="5" route="/map">
+            <i class="el-icon-document"></i>
+            <span slot="title">map</span>
+          </el-menu-item>
+          <el-menu-item index="4" disabled>
+            <i class="el-icon-setting"></i>
+            <span slot="title">其它</span>
           </el-menu-item>
           <el-menu-item index="4" disabled>
             <i class="el-icon-setting"></i>
@@ -43,14 +75,31 @@
 </template>
 
 <script>
+  import {removeToken} from "../../utils/cache";
+
   export default {
     name: "layout",
     data() {
       return {
-        isShow: true
+        isShow: true,
+        dropdownVisible: false
       }
     },
-    methods: {}
+    methods: {
+      handCommand(command) {
+        if (command === 'profile') this.profile();
+        if (command === 'logout') this.logout();
+      },
+      logout() {
+        removeToken();
+        window.location.href = '/login';
+      },
+      profile() {
+        this.$router.push({
+          path: 'profile'
+        });
+      }
+    }
   }
 </script>
 
@@ -94,7 +143,8 @@
   }
 
   .aside {
-    background-color: #42b983;
+    /*background-color: #42b983;*/
+    background-color: #fff;
   }
 
   .main {
